@@ -1,0 +1,27 @@
+.home {
+  position: relative;
+}
+.home button {
+  position: absolute;
+  top: 40px;
+  right: 100px;
+  padding: 12px 30px;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background: #0386f1;
+  color: #fff;
+  transition: all 0.3s;
+}
+.home button:hover {
+  background: #80abf5;
+  color: #fff;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+@media(max-width: 1000px){
+    .home button{
+        right: 30px;
+    }
+}
