@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -9,12 +9,16 @@ const Login = () => {
   const { setIsAuthenticated, setUser } = useContext(Context);
   const navigateTo = useNavigate();
 
+    const [loading, setLoading] = useState(false);
+  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const handleLogin = async (data) => {
+    setLoading(true); //Show loader
     await axios
       .post("https://mern-auth-backend-23n4.onrender.com/api/v1/user/login", data, {
         withCredentials: true,
@@ -30,7 +34,10 @@ const Login = () => {
       })
       .catch((error) => {
         toast.error(error.response.data.message);
-      });
+      })
+       .finally(() => {
+      setLoading(false); // Hide loader
+    });
   };
   return (
     <>
@@ -54,7 +61,13 @@ const Login = () => {
         <p className="forgot-password">
           <Link to={"/password/forgot"}>Forgot your password?</Link>
         </p>
-        <button type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+  {loading ? (
+    <span className="spinner"></span>
+  ) : (
+    "Login"
+  )}
+</button>
       </form>
     </>
   );
